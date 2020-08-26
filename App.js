@@ -1,21 +1,51 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Icon } from 'react-native-elements';
+import { StatusBar } from "react-native";
+
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createStackNavigator } from '@react-navigation/stack';
+
+import ScanView from './src/views/ScanView';
+import ProductsView from './src/views/ProductsView';
+import DetailsView from './src/views/DetailsView';
+
+const Tab = createBottomTabNavigator();
+const Stack = createStackNavigator();
+
+const productStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Product" component={ProductsView} />
+      <Stack.Screen name="Details" component={DetailsView} />
+    </Stack.Navigator>
+  );
+};
+const scanStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Scan" component={ScanView} />
+      <Stack.Screen name="Details" component={DetailsView} />
+    </Stack.Navigator>
+  );
+};
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <StatusBar />
+      <Tab.Navigator>
+        <Tab.Screen name="Scan" component={scanStack} options={{
+          tabBarLabel: 'Scanner',
+          tabBarIcon: () => <Icon name="barcode-scan" type="material-community" />
+        }} />
+        <Tab.Screen name="Products" component={productStack} options={{
+          tabBarLabel: 'Pizza',
+          tabBarIcon: () => <Icon name="pizza-slice" type="font-awesome-5" />
+        }} />
+      </Tab.Navigator>
+    </NavigationContainer>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
