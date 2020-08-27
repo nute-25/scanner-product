@@ -8,6 +8,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 
 import ScanView from './src/views/ScanView';
 import ProductsView from './src/views/ProductsView';
+import HistoryView from './src/views/HistoryView';
 import DetailsView from './src/views/DetailsView';
 
 const Tab = createBottomTabNavigator();
@@ -17,6 +18,14 @@ const productStack = () => {
   return (
     <Stack.Navigator>
       <Stack.Screen name="Product" component={ProductsView} />
+      <Stack.Screen name="Details" component={DetailsView} />
+    </Stack.Navigator>
+  );
+};
+const historyStack = () => {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="History" component={HistoryView} />
       <Stack.Screen name="Details" component={DetailsView} />
     </Stack.Navigator>
   );
@@ -42,6 +51,10 @@ export default function App() {
         <Tab.Screen name="Products" component={productStack} options={{
           tabBarLabel: 'Pizza',
           tabBarIcon: () => <Icon name="pizza-slice" type="font-awesome-5" />
+        }} />
+        <Tab.Screen name="History" component={historyStack} options={{
+          tabBarLabel: 'History',
+          tabBarIcon: () => <Icon name="history" type="font-awesome-5" />
         }} />
       </Tab.Navigator>
     </NavigationContainer>

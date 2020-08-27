@@ -19,13 +19,14 @@ const ScanView = ({ navigation }) => {
     }, []);
 
     const _handleBarCodeScanned = ({ data }) => {
-        setScanned(true);
-        Vibration.vibrate();
-
         fetch(`https://world.openfoodfacts.org/api/v0/product/${data}.json`)
             .then((response) => response.json())
             .then((responseJson) => {
-                navigation.navigate('Details', { product: responseJson.product });
+                if (responseJson.product) {
+                    Vibration.vibrate();
+                    setScanned(true);
+                    navigation.navigate('Details', { product: responseJson.product });
+                }
             })
             .catch((error) => {
                 console.error(error);
