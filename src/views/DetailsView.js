@@ -11,11 +11,27 @@ const DetailsView = ({ route, favorite, addProductToFavorite, removeProductFromF
         favorite[product.id] ? removeProductFromFavorite(product) : addProductToFavorite(product);
     };
 
+    let ingredientList;
+    if (product.ingredients && product.ingredients.length > 0) {
+        ingredientList = '';
+        product.ingredients.forEach((element, index) => {
+            if (index === 0) {
+                ingredientList += element.text;
+            }
+            else {
+                ingredientList += ', ' + element.text;
+            }
+        })
+    }
+    console.log(product.origins);
+    console.log(product.nutriscore_grade);
+
+
     return (
         <View style={styles.body}>
             <View style={styles.main}>
                 <Image
-                    source={product.image_thumb_url  ? { uri: product.image_thumb_url } : null}
+                    source={product.image_thumb_url ? { uri: product.image_thumb_url } : null}
                     style={styles.productPicture}
                 />
                 <Text style={styles.productName}>{product.product_name}</Text>
@@ -25,7 +41,32 @@ const DetailsView = ({ route, favorite, addProductToFavorite, removeProductFromF
                     <Icon name={favorite[product.id] ? "favorite" : "favorite-border"} type="material" />
                 </TouchableOpacity>
             </View>
-            <View style={styles.container} />
+            <View style={styles.container}>
+                {
+                    product.nutriscore_grade ? (
+                        <View>
+                            <Text style={styles.subtitle}>Nutrition :</Text>
+                            <Text style={styles.uppercase}>{product.nutriscore_grade}</Text>
+                        </View>
+                    ) : null
+                }
+                {
+                    product.origins ? (
+                        <View>
+                            <Text style={styles.subtitle}>Origine :</Text>
+                            <Text style={styles.uppercase}>{product.origins}</Text>
+                        </View>
+                    ) : null
+                }
+                {
+                    !ingredientList ? null : (
+                        <View>
+                            <Text style={styles.subtitle}>Ingrédients : </Text>
+                            <Text>{ingredientList}</Text>
+                        </View>
+                    )
+                }
+            </View>
         </View>
     )
 };
@@ -64,6 +105,13 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff',
         padding: 10,
         borderRadius: 30,
+    },
+    subtitle: {
+        fontWeight: 'bold',
+        fontSize: 15,
+    },
+    uppercase: {
+        textTransform: 'uppercase',
     }
 });
 
