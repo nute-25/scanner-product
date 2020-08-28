@@ -4,7 +4,9 @@ import { Icon } from 'react-native-elements';
 import { Camera } from 'expo-camera';
 import { useIsFocused } from '@react-navigation/native';
 
-const ScanView = ({ navigation }) => {
+
+const ScanView = ({ navigation, addProductToHistory }) => {
+
     const [hasPermission, setHasPermission] = useState(null);
     const [scanned, setScanned] = useState(false);
     const [isFlashOn, setFlashMode] = useState(false);
@@ -25,6 +27,7 @@ const ScanView = ({ navigation }) => {
                 if (responseJson.product) {
                     Vibration.vibrate();
                     setScanned(true);
+                    addProductToHistory(responseJson.product);
                     navigation.navigate('Details', { product: responseJson.product });
                 }
             })
@@ -63,7 +66,6 @@ const ScanView = ({ navigation }) => {
                     flashMode={isFlashOn ? Camera.Constants.FlashMode.torch : Camera.Constants.FlashMode.off}
                 >
                     <View style={styles.focus}/>
-                    {/* <Button title={'Flash'} onPress={() => _changeFlash()} /> */}
                     <TouchableOpacity style={styles.button} onPress={() => _changeFlash()}>
                         <Icon name="flashlight" type="entypo" />
                     </TouchableOpacity>
@@ -76,12 +78,13 @@ const ScanView = ({ navigation }) => {
     }
 };
 
+
 const styles = StyleSheet.create({
     camera: {
         flex: 1,
         flexDirection: 'column',
         justifyContent: 'flex-end',
-        position:'relative',
+        position: 'relative',
     },
     focus: {
         width: 250,

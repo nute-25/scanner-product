@@ -1,17 +1,29 @@
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Icon } from 'react-native-elements';
 
-const DetailsView = ({ route }) => {
+
+const DetailsView = ({ route, favorite, addProductToFavorite, removeProductFromFavorite }) => {
+
+    const product = route.params.product;
+
+    const _changeFavorite = () => {
+        favorite[product.id] ? removeProductFromFavorite(product) : addProductToFavorite(product);
+    };
+
     return (
         <View style={styles.body}>
             <View style={styles.main}>
                 <Image
-                    source={{ uri: route.params.product.image_small_url }}
+                    source={product.image_thumb_url  ? { uri: product.image_thumb_url } : null}
                     style={styles.productPicture}
                 />
-                <Text style={styles.productName}>{route.params.product.product_name}</Text>
-                <Text style={styles.productBrand}>{route.params.product.brands}</Text>
-                <Text>(Quantité : {route.params.product.quantity})</Text>
+                <Text style={styles.productName}>{product.product_name}</Text>
+                <Text style={styles.productBrand}>{product.brands}</Text>
+                <Text>(Quantité : {product.quantity})</Text>
+                <TouchableOpacity style={styles.button} onPress={() => _changeFavorite()}>
+                    <Icon name={favorite[product.id] ? "favorite" : "favorite-border"} type="material" />
+                </TouchableOpacity>
             </View>
             <View style={styles.container} />
         </View>
@@ -44,6 +56,14 @@ const styles = StyleSheet.create({
     },
     productBrand: {
         fontSize: 15,
+    },
+    button: {
+        position: 'absolute',
+        top: 10,
+        left: 10,
+        backgroundColor: '#fff',
+        padding: 10,
+        borderRadius: 30,
     }
 });
 

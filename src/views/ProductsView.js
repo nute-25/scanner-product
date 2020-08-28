@@ -3,7 +3,9 @@ import { ActivityIndicator, FlatList, View } from 'react-native';
 
 import ListProduct from '../components/ListProduct';
 
+
 const ProductsView = ({ navigation }) => {
+
     const [isLoading, setLoading] = useState(true);
     const [data, setData] = useState([]);
 

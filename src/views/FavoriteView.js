@@ -4,21 +4,21 @@ import {FlatList, Text, View } from 'react-native';
 import ListProduct from '../components/ListProduct';
 
 
-const HistoryView = ({ navigation, history }) => {
+const FavoriteView = ({ navigation, favorite }) => {
 
     return (
         <View style={{ flex: 1}}>
             {
-                Object.keys(history).length ? (
+                Object.keys(favorite).length ? (
                     <FlatList
-                        data={Object.values(history)}
+                        data={Object.values(favorite)}
                         keyExtractor={({ id }) => id}
                         renderItem={({ item }) => <ListProduct item={item} navigation={navigation} />}
                     />
-                ) : <Text>Vous n'avez encore rien scanné.</Text>
+                ) : <Text>Vous n'avez pas de produits favoris.</Text>
             }
         </View>
     );
 };
 
-export default HistoryView;
+export default FavoriteView;
