@@ -1,5 +1,4 @@
-import { ADD_PRODUCT_TO_FAVORITE } from '../constants/favoriteConstant';
-import { REMOVE_PRODUCT_FROM_FAVORITE } from '../constants/favoriteConstant';
+import { ADD_PRODUCT_TO_FAVORITE, REMOVE_PRODUCT_FROM_FAVORITE, SET_FAVORITE } from '../constants/favoriteConstant';
 
 export function addProductToFavorite(product) {
     return {
@@ -7,10 +6,15 @@ export function addProductToFavorite(product) {
         product
     }
 };
-
 export function removeProductFromFavorite(product) {
     return {
         type: REMOVE_PRODUCT_FROM_FAVORITE,
         product
     }
-}
+};
+export function setFavorite(favorite) {
+    return {
+        type: SET_FAVORITE,
+        favorite
+    }
+};

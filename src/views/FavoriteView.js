@@ -1,5 +1,5 @@
 import React from 'react';
-import {FlatList, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 import ListProduct from '../components/ListProduct';
 
@@ -7,7 +7,7 @@ import ListProduct from '../components/ListProduct';
 const FavoriteView = ({ navigation, favorite }) => {
 
     return (
-        <View style={{ flex: 1}}>
+        <View style={{ flex: 1 }}>
             {
                 Object.keys(favorite).length ? (
                     <FlatList

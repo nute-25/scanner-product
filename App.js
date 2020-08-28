@@ -10,6 +10,8 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 
+import AsyncStorageContainer from './src/container/AsyncStorageContainer';
+
 import ScanContainer from './src/container/ScanContainer';
 import ProductsView from './src/views/ProductsView';
 import HistoryContainer from './src/container/HistoryContainer';
@@ -35,6 +37,7 @@ export default function App() {
   return (
     <Provider store={store}>
       <NavigationContainer>
+        <AsyncStorageContainer />
         <StatusBar />
         <Tab.Navigator>
 

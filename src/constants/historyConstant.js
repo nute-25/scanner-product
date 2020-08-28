@@ -1,1 +1,2 @@
 export const ADD_PRODUCT_TO_HISTORY = 'ADD_PRODUCT_TO_HISTORY';
+export const SET_HISTORY = 'SET_HISTORY';
